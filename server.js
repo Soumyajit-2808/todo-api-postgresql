@@ -99,6 +99,27 @@ app.put("/tasks/:id", async (req, res) => {
 	}
 });
 
+app.delete("/tasks/:id", async (req, res) => {
+	try {
+		const id = Number(req.params.id);
+		const result = await pool.query(
+			"DELETE FROM tasks WHERE id = $1 RETURNING *",
+			[id],
+		);
+		if (result.rows.length === 0) {
+			return res.status(404).json({
+				message: "Task not found",
+			});
+		}
+		res.json(result.rows[0]);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({
+			errer: "Database Error",
+		});
+	}
+});
+
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
