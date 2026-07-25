@@ -77,6 +77,28 @@ app.post("/tasks", async (req, res) => {
 	}
 });
 
+app.put("/tasks/:id", async (req, res) => {
+	try {
+		const id = Number(req.params.id);
+		const { name, status } = req.body;
+		const result = await pool.query(
+			"UPDATE tasks SET name = $1, status = $2 WHERE id = $3 RETURNING *",
+			[name, status, id],
+		);
+		if (result.rows.length === 0) {
+			return res.status(404).json({
+				message: "Task not found",
+			});
+		}
+		res.json(result.rows[0]);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({
+			error: "Database Error",
+		});
+	}
+});
+
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
