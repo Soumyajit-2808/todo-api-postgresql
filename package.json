@@ -1,17 +1,24 @@
 {
-  "name": "todo-api-postgresql",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "express": "^5.2.1",
-    "pg": "^8.22.0"
-  }
+	"name": "todo-api-postgresql",
+	"version": "1.0.0",
+	"description": "A RESTful Todo API built with Node.js, Express, and PostgreSQL.",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"keywords": [
+		"nodejs",
+		"express",
+		"postgresql",
+		"rest-api",
+		"crud"
+	],
+	"author": "Soumyajit Dutta",
+	"license": "MIT",
+	"type": "commonjs",
+	"dependencies": {
+		"dotenv": "^17.4.2",
+		"express": "^5.2.1",
+		"pg": "^8.22.0"
+	}
 }
