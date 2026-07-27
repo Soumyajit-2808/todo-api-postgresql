@@ -1,6 +1,6 @@
 # Todo API with PostgreSQL
 
-A RESTful Todo API built with Node.js, Express, and PostgreSQL. The project supports full CRUD operations with proper HTTP status codes, input validation, parameterized SQL queries, and error handling.
+A RESTful Todo API built with **Node.js**, **Express.js**, and **PostgreSQL**. The project supports full CRUD operations with proper HTTP status codes, input validation, parameterized SQL queries, and error handling.
 
 ---
 
@@ -15,6 +15,7 @@ A RESTful Todo API built with Node.js, Express, and PostgreSQL. The project supp
 - Proper HTTP status codes
 - PostgreSQL database integration
 - Parameterized SQL queries to prevent SQL injection
+- Environment variable support using `.env`
 
 ---
 
@@ -24,47 +25,76 @@ A RESTful Todo API built with Node.js, Express, and PostgreSQL. The project supp
 - Express.js
 - PostgreSQL
 - pg
+- dotenv
 
 ---
 
 ## Project Structure
 
-```
+```text
 todo-api-postgresql
 │
 ├── node_modules/
+├── .env
+├── .env.example
 ├── .gitignore
-├── package.json
 ├── package-lock.json
-├── server.js
-└── README.md
+├── package.json
+├── README.md
+└── server.js
 ```
 
 ---
 
 ## Installation
 
-Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Soumyajit-2808/todo-api-postgresql.git
 ```
 
-Install dependencies
+### 2. Navigate to the project directory
+
+```bash
+cd todo-api-postgresql
+```
+
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-Start PostgreSQL.
+### 4. Create a `.env` file
 
-Create a database named
+Copy the `.env.example` file and rename it to `.env`.
 
+Example:
+
+```env
+DB_USER=postgres
+DB_HOST=localhost
+DB_NAME=todo_db
+DB_PASSWORD=your_password
+DB_PORT=5432
+
+PORT=3000
 ```
-todo_db
+
+Replace `your_password` with your PostgreSQL password.
+
+---
+
+### 5. Create the database
+
+```sql
+CREATE DATABASE todo_db;
 ```
 
-Create the table
+---
+
+### 6. Create the tasks table
 
 ```sql
 CREATE TABLE tasks (
@@ -74,13 +104,15 @@ CREATE TABLE tasks (
 );
 ```
 
-Run the project
+---
+
+### 7. Start the server
 
 ```bash
-node server.js
+npm start
 ```
 
-The server runs on
+The server runs at:
 
 ```
 http://localhost:3000
@@ -92,23 +124,27 @@ http://localhost:3000
 
 ### Get all tasks
 
-```
+```http
 GET /tasks
 ```
 
+---
+
 ### Get task by ID
 
-```
+```http
 GET /tasks/:id
 ```
 
-### Create task
+---
 
-```
+### Create a task
+
+```http
 POST /tasks
 ```
 
-Example Body
+Request Body
 
 ```json
 {
@@ -117,15 +153,28 @@ Example Body
 }
 ```
 
-### Update task
+---
 
-```
+### Update a task
+
+```http
 PUT /tasks/:id
 ```
 
-### Delete task
+Request Body
 
+```json
+{
+	"name": "Learn PostgreSQL",
+	"status": "Completed"
+}
 ```
+
+---
+
+### Delete a task
+
+```http
 DELETE /tasks/:id
 ```
 
@@ -133,20 +182,56 @@ DELETE /tasks/:id
 
 ## HTTP Status Codes
 
-- 200 OK
-- 201 Created
-- 400 Bad Request
-- 404 Not Found
-- 500 Internal Server Error
+| Status Code | Description           |
+| ----------: | --------------------- |
+|         200 | OK                    |
+|         201 | Created               |
+|         400 | Bad Request           |
+|         404 | Not Found             |
+|         500 | Internal Server Error |
+
+---
+
+## Environment Variables
+
+This project uses environment variables for configuration.
+
+Create a `.env` file using the `.env.example` template.
+
+| Variable    | Description         |
+| ----------- | ------------------- |
+| DB_USER     | PostgreSQL username |
+| DB_HOST     | Database host       |
+| DB_NAME     | Database name       |
+| DB_PASSWORD | PostgreSQL password |
+| DB_PORT     | PostgreSQL port     |
+| PORT        | Express server port |
+
+---
+
+## Security
+
+- Database credentials are stored in `.env`.
+- `.env` is ignored by Git using `.gitignore`.
+- Parameterized SQL queries are used to help prevent SQL injection.
 
 ---
 
 ## Future Improvements
 
-- JWT Authentication
-- User Accounts
-- Docker
+- User Authentication
+- JWT Authorization
+- Password Hashing (bcrypt)
 - Pagination
-- Filtering
 - Search
+- Filtering
+- Docker Support
+- Testing with Jest
+- API Documentation using Swagger/OpenAPI
 - Deployment
+
+---
+
+## Author
+
+**Soumyajit Dutta**

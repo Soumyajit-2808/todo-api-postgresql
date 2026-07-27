@@ -1,7 +1,7 @@
 {
 	"name": "todo-api-postgresql",
 	"version": "1.0.0",
-	"description": "A RESTful Todo API built with Node.js, Express, and PostgreSQL.",
+	"description": "A RESTful Todo API built with Node.js, Express.js, and PostgreSQL.",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js"
