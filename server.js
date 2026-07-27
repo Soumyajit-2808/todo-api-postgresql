@@ -25,7 +25,7 @@ const PORT = 3000;
 
 app.get("/tasks", async (req, res) => {
 	try {
-		const result = await pool.query("SELECT * FROM tasks");
+		const result = await pool.query("SELECT * FROM tasks ORDER BY id ASC");
 
 		res.json(result.rows);
 	} catch (err) {
@@ -63,6 +63,12 @@ app.post("/tasks", async (req, res) => {
 	try {
 		const { name, status } = req.body;
 
+		if (!name || !status) {
+			return res.status(400).json({
+				message: "Name and status are required",
+			});
+		}
+
 		const result = await pool.query(
 			"INSERT INTO tasks (name, status) VALUES ($1, $2) RETURNING *",
 			[name, status],
@@ -81,6 +87,12 @@ app.put("/tasks/:id", async (req, res) => {
 	try {
 		const id = Number(req.params.id);
 		const { name, status } = req.body;
+
+		if (!name || !status) {
+			return res.status(400).json({
+				message: "Name and status are required",
+			});
+		}
 		const result = await pool.query(
 			"UPDATE tasks SET name = $1, status = $2 WHERE id = $3 RETURNING *",
 			[name, status, id],
